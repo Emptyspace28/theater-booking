@@ -3,91 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alternative Living Theater | Booking</title>
+    <title>Alternative Living Theater | Live Booking</title>
     <style>
-        :root {
-            --accent: #e74c3c;
-            --bg: #0a0a0a;
-            --card: #1a1a1a;
-            --text: #ffffff;
-            --price: #2ecc71;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-        }
-
-        /* Navigation */
-        nav {
-            background: #000;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #333;
-        }
-
-        .logo { font-weight: bold; letter-spacing: 2px; color: #888; font-size: 0.8rem; }
-        .menu-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; cursor: pointer; }
-        .menu-links a:hover { color: var(--accent); }
-
-        /* Main Layout */
+        :root { --accent: #e74c3c; --bg: #0a0a0a; --card: #1a1a1a; --text: #ffffff; --price: #2ecc71; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+        nav { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; border-bottom: 1px solid #333; }
+        .logo { font-weight: bold; color: #888; font-size: 0.8rem; letter-spacing: 1px; }
+        .menu a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; cursor: pointer; }
         .container { width: 95%; max-width: 420px; margin: 40px auto; text-align: center; }
-
-        .show-card {
-            background: var(--card);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            border: 1px solid #2a2a2a;
-            position: relative;
-        }
-
-        .price-badge {
-            background: var(--price);
-            color: #000;
-            font-weight: bold;
-            padding: 8px 20px;
-            border-radius: 0 20px 0 20px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 1.2rem;
-        }
-
-        .show-title { font-size: 2rem; color: var(--accent); margin: 25px 0 10px 0; font-weight: 800; }
-
-        .info-box {
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: left;
-            margin: 20px 0;
-            border-left: 4px solid var(--accent);
-        }
-
+        .show-card { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid #2a2a2a; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .price-badge { background: var(--price); color: #000; font-weight: bold; padding: 8px 15px; border-radius: 0 20px 0 20px; position: absolute; top: 0; right: 0; }
+        .show-title { font-size: 2rem; color: var(--accent); margin: 20px 0; font-weight: 800; }
+        .info-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; text-align: left; margin: 20px 0; border-left: 4px solid var(--accent); }
         .highlight { color: #f1c40f; font-weight: bold; }
-
-        .btn {
-            display: block;
-            background: var(--accent);
-            color: white;
-            padding: 16px;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-        .btn-small { background: #333; font-size: 0.9rem; margin-top: 10px; }
-
-        /* Admin Styles */
-        #admin-page { display: none; text-align: left; }
-        .admin-box { background: #222; padding: 20px; border-radius: 15px; border: 1px solid #444; }
+        .btn { display: block; background: var(--accent); color: white; padding: 16px; text-decoration: none; border-radius: 12px; font-weight: bold; margin-top: 15px; transition: 0.3s; }
+        .btn:hover { background: #c0392b; }
+        #admin-page { display: none; text-align: left; background: #222; padding: 20px; border-radius: 15px; }
         input { width: 100%; padding: 12px; margin: 8px 0; background: #333; border: 1px solid #555; color: white; border-radius: 8px; box-sizing: border-box; }
         .save-btn { background: var(--price); color: black; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; border-radius: 10px; margin-top: 15px; }
     </style>
@@ -95,10 +26,10 @@
 <body>
 
     <nav>
-        <div class="logo">ALTERNATIVE LIVING THEATER</div>
-        <div class="menu-links">
+        <div class="logo">ALT LIVE BOOKING</div>
+        <div class="menu">
             <a onclick="showSection('home')">Home</a>
-            <a onclick="adminLogin()">Admin Login</a>
+            <a onclick="adminLogin()">Login</a>
         </div>
     </nav>
 
@@ -106,45 +37,37 @@
         <div class="show-card">
             <div class="price-badge">₹<span id="d-price">...</span></div>
             <div id="d-title" class="show-title">Loading...</div>
-            
             <div class="info-box">
                 📅 <b>Date:</b> <span id="d-date" class="highlight">...</span><br>
                 ⏰ <b>Time:</b> <span id="d-time" class="highlight">...</span><br>
-                📍 <b>Venue:</b> <span class="highlight">Empty space</span><br>
-                <small style="color:#888;">Anadalok, Madhyamgram, Kolkata</small><br>
-                <a href="https://maps.app.goo.gl/r5yvSUpUuGvM7L6D9" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.85rem; display: inline-block; margin-top: 5px;">📍 Open Google Maps</a>
+                📍 <b>Venue:</b> <span class="highlight">Kichir Michir The Nest</span>
+            </div>
+            <div style="margin-bottom: 20px; font-size: 1.2rem;">
+                🎟️ <b>Seats Left:</b> <span id="d-seats" class="highlight">--</span>
             </div>
 
-            <div style="margin-bottom: 10px;">
-                🎟️ <b>Seats Left:</b> <span id="d-seats" class="highlight">--</span> / 50
-            </div>
-
-            <a href="#" id="wa1" class="btn">RESERVE (Admin 1)</a>
-            <a href="#" id="wa2" class="btn btn-small">RESERVE (Admin 2)</a>
+            <a href="YOUR_GOOGLE_FORM_LINK_HERE" id="book-btn" target="_blank" class="btn">RESERVE MY SEATS</a>
             
-            <a href="https://www.facebook.com/inSearchOfAlternatives/" target="_blank" style="display:block; margin-top:20px; color:#1877F2; text-decoration:none; font-size:0.8rem;">Visit Facebook Page</a>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 15px;">Live availability updated automatically.</p>
         </div>
     </div>
 
     <div id="admin-page" class="container">
         <div class="admin-box">
-            <h2 style="margin-top:0">Update Show</h2>
-            <input type="text" id="i-title" placeholder="Show Name">
-            <input type="number" id="i-price" placeholder="Ticket Price (₹)">
-            <input type="text" id="i-date" placeholder="Show Date">
-            <input type="text" id="i-time" placeholder="Show Time">
-            <input type="number" id="i-seats" placeholder="Seats Left">
-            
-            <button class="save-btn" id="saveBtn" onclick="updateDatabase()">SAVE TO DATABASE</button>
-            <button onclick="showSection('home')" style="background:none; color:grey; border:none; width:100%; margin-top:10px; cursor:pointer;">Back to Home</button>
+            <h2 style="margin-top:0">Admin Settings</h2>
+            <label>Show Name</label><input type="text" id="i-title">
+            <label>Price (₹)</label><input type="number" id="i-price">
+            <label>Date</label><input type="text" id="i-date">
+            <label>Time</label><input type="text" id="i-time">
+            <label>Total Capacity</label><input type="number" id="i-max">
+            <button class="save-btn" id="saveBtn" onclick="updateDatabase()">SAVE & UPDATE SITE</button>
+            <button onclick="showSection('home')" style="background:none; color:grey; border:none; width:100%; margin-top:10px; cursor:pointer;">Cancel</button>
         </div>
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyI4Na0fyeg6uVZOYSyLfoxgi1wHUxZZYlPu-Q3TdQ9Fqx_yIQ1jbPlG2WdVOSfQS7DnA/exec';
-        const ADMIN_PASS = "2022"; 
-        const ADMIN_1 = "919674056496";
-        const ADMIN_2 = "919007920467";
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwtwlfAfQL6QabHXm5NfOUhO6yOXYJxsyxPcYo3I-ozYh7E60xcXYvVghfNnU3vn2RMuw/exec';
+        const ADMIN_PASS = "1234"; // You can change this later
 
         async function loadData() {
             try {
@@ -155,18 +78,21 @@
                 document.getElementById('d-price').innerText = data.price;
                 document.getElementById('d-date').innerText = data.date;
                 document.getElementById('d-time').innerText = data.time;
-                document.getElementById('d-seats').innerText = data.seats;
+                document.getElementById('d-seats').innerText = data.remainingSeats;
 
                 document.getElementById('i-title').value = data.name;
                 document.getElementById('i-price').value = data.price;
                 document.getElementById('i-date').value = data.date;
                 document.getElementById('i-time').value = data.time;
-                document.getElementById('i-seats').value = data.seats;
+                document.getElementById('i-max').value = data.maxSeats;
 
-                const msg = encodeURIComponent(`Hi! I'd like to book seats for "${data.name}" on ${data.date}.`);
-                document.getElementById('wa1').href = `https://wa.me/${ADMIN_1}?text=${msg}`;
-                document.getElementById('wa2').href = `https://wa.me/${ADMIN_2}?text=${msg}`;
-            } catch (e) { console.log("Load Error"); }
+                if(data.remainingSeats <= 0) {
+                    const btn = document.getElementById('book-btn');
+                    btn.innerText = "SOLD OUT";
+                    btn.style.background = "#444";
+                    btn.style.pointerEvents = "none";
+                }
+            } catch (e) { console.log("Data load failed."); }
         }
 
         function showSection(s) {
@@ -176,7 +102,7 @@
 
         function adminLogin() {
             if (prompt("Enter Password:") === ADMIN_PASS) showSection('admin');
-            else alert("Wrong password");
+            else alert("Incorrect password.");
         }
 
         async function updateDatabase() {
@@ -189,16 +115,11 @@
                 price: document.getElementById('i-price').value,
                 date: document.getElementById('i-date').value,
                 time: document.getElementById('i-time').value,
-                seats: document.getElementById('i-seats').value
+                maxSeats: document.getElementById('i-max').value
             };
 
-            await fetch(API_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(newData)
-            });
-
-            alert("Site Updated Successfully!");
+            await fetch(API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(newData) });
+            alert("Database Updated!");
             location.reload();
         }
 
