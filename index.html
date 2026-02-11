@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALT | Live Booking System</title>
+    <title>Alternative Living Theatre | Live Booking</title>
     <style>
         :root { --accent: #e74c3c; --bg: #0a0a0a; --card: #1a1a1a; --text: #ffffff; --price: #2ecc71; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; }
-        nav { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; border-bottom: 1px solid #333; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+        nav { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; border-bottom: 1px solid #333; align-items: center; }
         .logo { font-weight: bold; color: #888; font-size: 0.8rem; letter-spacing: 2px; }
         .menu a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.9rem; cursor: pointer; }
         .container { width: 95%; max-width: 420px; margin: 40px auto; text-align: center; }
@@ -18,6 +18,7 @@
         .highlight { color: #f1c40f; font-weight: bold; }
         .btn { display: block; background: var(--accent); color: white; padding: 16px; text-decoration: none; border-radius: 12px; font-weight: bold; margin-top: 15px; transition: 0.3s; }
         .btn:hover { background: #c0392b; transform: translateY(-2px); }
+        .fb-link { display: block; margin-top: 20px; color: #1877F2; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
         #admin-page { display: none; text-align: left; background: #222; padding: 25px; border-radius: 20px; border: 1px solid #444; }
         label { display: block; font-size: 0.8rem; color: #888; margin-top: 10px; }
         input { width: 100%; padding: 12px; margin-top: 5px; background: #333; border: 1px solid #555; color: white; border-radius: 8px; box-sizing: border-box; }
@@ -27,10 +28,10 @@
 <body>
 
     <nav>
-        <div class="logo">ALT PRESENTS</div>
+        <div class="logo">ALTERNATIVE LIVING THEATRE</div>
         <div class="menu">
             <a onclick="showSection('home')">Home</a>
-            <a onclick="adminLogin()">Login</a>
+            <a onclick="adminLogin()">Admin Login</a>
         </div>
     </nav>
 
@@ -42,16 +43,18 @@
             <div class="info-box">
                 📅 <b>Date:</b> <span id="d-date" class="highlight">...</span><br>
                 ⏰ <b>Time:</b> <span id="d-time" class="highlight">...</span><br>
-                📍 <b>Venue:</b> <span class="highlight">Alternative Living Theatre</span>
+                📍 <b>Venue:</b> <span class="highlight">Alternative Living Theatre</span><br>
+                <a href="https://maps.app.goo.gl/K99VmsG6vB7K4G4U9" target="_blank" style="color: #3498db; text-decoration: none; font-size: 0.85rem; display: inline-block; margin-top: 5px;">📍 View on Google Maps</a>
             </div>
 
             <div style="margin: 25px 0; font-size: 1.3rem; border: 1px dashed #444; padding: 10px; border-radius: 10px;">
                 🎟️ <b>Seats Left:</b> <span id="d-seats" class="highlight" style="font-size: 1.8rem;">--</span>
             </div>
 
-            <a href="https://docs.google.com/spreadsheets/d/1SD8a16mi9bd1Fenr0zz-LK_QPmB_jQ9fPRUR5NEqbuk/edit?resourcekey=&gid=1685402711#gid=1685402711" id="book-btn" target="_blank" class="btn">RESERVE MY SEATS</a>
+            <a href="PASTE_YOUR_GOOGLE_FORM_LINK_HERE" id="book-btn" target="_blank" class="btn">RESERVE MY SEATS</a>
             
-            <p style="font-size: 0.75rem; color: #555; margin-top: 20px; letter-spacing: 1px;">LIVE BOOKING SYSTEM v2.0</p>
+            <a href="https://www.facebook.com/inSearchOfAlternatives/" target="_blank" class="fb-link">Visit our Facebook Page</a>
+            <p style="font-size: 0.75rem; color: #555; margin-top: 20px; letter-spacing: 1px;">LIVE BOOKING SYSTEM v2.1</p>
         </div>
     </div>
 
@@ -70,7 +73,6 @@
     </div>
 
     <script>
-        // YOUR UNIQUE DATABASE URL
         const API_URL = 'https://script.google.com/macros/s/AKfycbywXnKXuz_r-wUiXmdGHMaje0hmt9-WC758QWJnB7e67f1jb8TdroUbpL8K8FUuWReE6Q/exec';
         const ADMIN_PASS = "2022"; 
 
@@ -79,28 +81,25 @@
                 const res = await fetch(API_URL);
                 const data = await res.json();
                 
-                // Update Main Page
                 document.getElementById('d-title').innerText = data.name;
                 document.getElementById('d-price').innerText = data.price;
                 document.getElementById('d-date').innerText = data.date;
                 document.getElementById('d-time').innerText = data.time;
                 document.getElementById('d-seats').innerText = data.remainingSeats;
 
-                // Pre-fill Admin Inputs
                 document.getElementById('i-title').value = data.name;
                 document.getElementById('i-price').value = data.price;
                 document.getElementById('i-date').value = data.date;
                 document.getElementById('i-time').value = data.time;
                 document.getElementById('i-max').value = data.maxSeats;
 
-                // Handle Sold Out
                 if(data.remainingSeats <= 0) {
                     const btn = document.getElementById('book-btn');
                     btn.innerText = "SOLD OUT";
                     btn.style.background = "#444";
                     btn.style.pointerEvents = "none";
                 }
-            } catch (e) { console.error("Could not fetch data."); }
+            } catch (e) { console.error("Data load failed."); }
         }
 
         function showSection(s) {
@@ -109,17 +108,14 @@
         }
 
         function adminLogin() {
-            const entry = prompt("Please enter Admin Password:");
-            if (entry === ADMIN_PASS) {
-                showSection('admin');
-            } else if (entry !== null) {
-                alert("Access Denied.");
-            }
+            const entry = prompt("Enter Admin Password:");
+            if (entry === ADMIN_PASS) showSection('admin');
+            else if (entry !== null) alert("Access Denied.");
         }
 
         async function updateDatabase() {
             const btn = document.getElementById('saveBtn');
-            btn.innerText = "Processing...";
+            btn.innerText = "Syncing...";
             btn.disabled = true;
 
             const newData = {
@@ -131,22 +127,15 @@
             };
 
             try {
-                // Send data to Google Sheet
-                await fetch(API_URL, { 
-                    method: 'POST', 
-                    mode: 'no-cors', 
-                    body: JSON.stringify(newData) 
-                });
-                
-                alert("Success! The show details have been updated.");
+                await fetch(API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(newData) });
+                alert("Site updated successfully!");
                 location.reload();
             } catch (e) {
-                alert("Error: Connection failed.");
+                alert("Update failed.");
                 btn.innerText = "SAVE & SYNC SITE";
                 btn.disabled = false;
             }
         }
-
         loadData();
     </script>
 </body>
